@@ -15,9 +15,9 @@ add_definitions(-DAPP_VERSION="1.0.0" -DTCP_FASTOPEN -DENABLE_SSL_KEYLOG -DENABL
 
 # Qt Awesome
 set(QT_AWESOME_DIR ${CMAKE_SOURCE_DIR}/src/QtAwesome/QtAwesome)
-set(QT_AWESOME_SOURCES ${QT_AWESOME_DIR}/QtAwesomeAnim.cpp)
-set(QT_AWESOME_HEADERS ${QT_AWESOME_DIR}/QtAwesomeAnim.h)
-set(QT_AWESOME_RESOURCES ${QT_AWESOME_DIR}/QtAwesome.pri)
+file(GLOB_RECURSE ${QT_AWESOME_DIR}/*.cpp QT_AWESOME_SOURCES)
+file(GLOB_RECURSE ${QT_AWESOME_DIR}/*.h QT_AWESOME_HEADERS)
+set(QT_AWESOME_RESOURCES ${QT_AWESOME_DIR}/QtAwesome.qrc)
 
 if(WIN32)
     # TODO
@@ -42,3 +42,9 @@ add_executable(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${TROJAN_QT5_INCLUDE_PATH})
+
+target_link_libraries(${PROJECT_NAME} PRIVATE 
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Network
+)
